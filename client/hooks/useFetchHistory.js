@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import API from './api';
 
 export function useResumeHistory() {
   const [history, setHistory] = useState([]);
 
   const fetchHistory = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/history');
+      const res = await API.get('/history');
+
       if (res.data.success) {
         setHistory(res.data.data);
       }

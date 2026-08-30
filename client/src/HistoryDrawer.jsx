@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import API from './api';
 import { 
   X, 
   History, 
@@ -26,14 +26,8 @@ export default function HistoryDrawer({ isOpen, onClose, onSelectHistory }) {
   const fetchHistory = async () => {
     setLoading(true);
     setError('');
-    const token = localStorage.getItem('authToken');
-
     try {
-      const response = await axios.get('http://localhost:5000/api/history', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await API.get('/history');
 
       if (response.data.success) {
         setHistoryItems(response.data.data);

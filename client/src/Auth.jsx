@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import API from './api';
 import { Mail, Lock, User, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import './Auth.css';
 
@@ -19,12 +19,12 @@ export default function Auth({ onLoginSuccess }) {
     setLoading(true);
     setError('');
 
-    const endpoint = isLogin 
-      ? 'http://localhost:5000/api/auth/login' 
-      : 'http://localhost:5000/api/auth/register';
+    const endpoint = isLogin
+      ? '/auth/login'
+      : '/auth/register';
 
     try {
-      const response = await axios.post(endpoint, formData);
+      const response = await API.post(endpoint, formData);
 
       if (response.data.success) {
         // 1. Save Token and User Data to localStorage

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import API from './api';
 import { History, LogOut, Sparkles, UploadCloud, FileText, ArrowRight, Loader2, RefreshCw, Tag, CheckCircle2, AlertCircle } from 'lucide-react';
 import Auth from './Auth';
 import HistoryDrawer from './HistoryDrawer';
@@ -53,13 +53,10 @@ export default function App() {
     formData.append('resume', file);
     formData.append('jobDescription', jobDescription);
 
-    const token = localStorage.getItem('authToken');
-
     try {
-      const response = await axios.post('http://localhost:5000/api/analyze', formData, {
+      const response = await API.post('/analyze', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
         },
       });
 
