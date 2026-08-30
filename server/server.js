@@ -156,5 +156,15 @@ app.get('/api/history', verifyToken, async (req, res) => {
     }
 });
 
+// --- SERVE REACT FRONTEND ---
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
